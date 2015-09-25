@@ -15,19 +15,11 @@ import android.net.Uri;
 public abstract class ProviderDelegate {
 
     /**
-     * Return a unique Id that identify this delegate into the Uri Matcher. This id MUST be unique across all the delegates.
-     * It's associated with the path given by {@link ProviderDelegate#getPath()}
-     *
-     * @return the URI match code (id)
-     */
-    public abstract int getMatchCode();
-
-    /**
-     * Return the path to which this delegate responds. This path MUST be unique across all the delegates
+     * Return the table to which this delegate responds. This path MUST be unique across all the delegates
      *
      * @return the handled URI as String
      */
-    public abstract String getPath();
+    public abstract String getTable();
 
     /**
      * {@link android.content.ContentProvider#getType(Uri)}
