@@ -19,7 +19,7 @@ public class ProviderDelegateManager {
 	protected final Context context;
 
 	/**
-	 * The ContentProvider authority
+	 * The ContentProvider's authority
 	 */
 	protected final String authority;
 
@@ -184,7 +184,7 @@ public class ProviderDelegateManager {
 
 	private boolean isTableMatcher(String table, Uri uri) {
 		List<String> segments = uri.getPathSegments();
-		if (segments.size() > 0) {
+		if (segments != null && segments.size() > 0) {
 			String uriTable = segments.get(0);
 			return TextUtils.equals(table, uriTable);
 		} else {

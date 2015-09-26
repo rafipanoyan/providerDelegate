@@ -1,21 +1,41 @@
 package world.rafoufoun.providerdelegate;
 
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.text.TextUtils;
 
 /**
- * This abstract class handle all the database logic for an application element. Here are done all the operations
+ * This abstract class handle all the database logic for a database table. Here are done all the operations
  * related to one model object.
  *
  * CRUD methods throw an {@link UnsupportedOperationException} by default. Override them only if needed.
- * Some ProviderDelegate want to not implement some CRUD method (for example, do not insert on the item URI but on the table URI)
  */
 public abstract class ProviderDelegate {
 
     /**
-     * Return the table to which this delegate responds. This path MUST be unique across all the delegates
+     * The ContentProvider's authority. Use this authority for the {@link #uriMatcher} initialization
+     */
+    protected String authority;
+
+    protected UriMatcher uriMatcher;
+
+    public ProviderDelegate(String authority){
+        this.authority = authority;
+        this.uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        initUriMatcher();
+    }
+
+    /**
+     * Initialize the {@link #uriMatcher}. Declare all the handled URIs by this {@link ProviderDelegate} associating it with a URI code (int).
+     * These code will be used into you CRUD methods to know which URI is called.
+     */
+    protected abstract void initUriMatcher();
+
+    /**
+     * Return the table to which this delegate responds. This value MUST be unique across all the delegates
      *
      * @return the handled URI as String
      */

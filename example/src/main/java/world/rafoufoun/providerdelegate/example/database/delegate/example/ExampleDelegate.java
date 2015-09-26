@@ -16,19 +16,19 @@ import world.rafoufoun.providerdelegate.example.database.table.ExampleTable;
 import world.rafoufoun.providerdelegate.ProviderDelegate;
 
 public class ExampleDelegate extends ProviderDelegate {
+
 	private static final String TAG= ExampleDelegate.class.getSimpleName();
 
-	private static final UriMatcher uriMatcher = buildUriMatcher();
-
-	private static UriMatcher buildUriMatcher() {
-		final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-		final String authority = Contract.AUTHORITY;
-
-		matcher.addURI(authority, ExampleTable.TABLE_NAME, ConstantProviderDelegate.EXAMPLE);
-		matcher.addURI(authority, ExampleTable.TABLE_NAME+ ConstantProviderDelegate.SLASH + ConstantProviderDelegate.STAR, ConstantProviderDelegate.EXAMPLE_ITEM);
-
-		return matcher;
+	public ExampleDelegate(String authority) {
+		super(authority);
 	}
+
+	@Override
+	protected void initUriMatcher() {
+		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME, ConstantProviderDelegate.EXAMPLE);
+		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME + ConstantProviderDelegate.SLASH + ConstantProviderDelegate.STAR, ConstantProviderDelegate.EXAMPLE_ITEM);
+	}
+
 	@Override
 	public String getTable() {
 		return ExampleTable.TABLE_NAME;

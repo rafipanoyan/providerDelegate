@@ -19,7 +19,7 @@ public class ExampleProvider extends DelegationProvider{
 		super.onCreate();
 		database = new ExampleDatabase(getContext());
 
-		delegateManager.addDelegate(new ExampleDelegate());
+		delegateManager.addDelegate(new ExampleDelegate(getAuthority()));
 		return true;
 	}
 

@@ -17,11 +17,10 @@ public class ExampleDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE "+ExampleTable.TABLE_NAME+" ( '"+ExampleTable._ID+"' INTEGER PRIMARY KEY NOT NULL, '"+ExampleTable.TITLE+"' TEXT NOT NULL );");
-		db.execSQL("INSERT INTO "+ExampleTable.TABLE_NAME+" ( '"+ExampleTable.TITLE+"' ) VALUES ('Hello World');");
-		db.execSQL("INSERT INTO "+ExampleTable.TABLE_NAME+" ( '"+ExampleTable.TITLE+"' ) VALUES ('Bonjour');");
-		db.execSQL("INSERT INTO "+ExampleTable.TABLE_NAME+" ( '"+ExampleTable.TITLE+"' ) VALUES ('Hallo');");
-
+		db.execSQL("CREATE TABLE " + ExampleTable.TABLE_NAME + " ( '" + ExampleTable._ID + "' INTEGER PRIMARY KEY NOT NULL, '" + ExampleTable.TITLE + "' TEXT NOT NULL );");
+		db.execSQL("INSERT INTO " + ExampleTable.TABLE_NAME + " ( '" + ExampleTable.TITLE + "' ) VALUES ('Hello World');");
+		db.execSQL("INSERT INTO " + ExampleTable.TABLE_NAME + " ( '" + ExampleTable.TITLE + "' ) VALUES ('Bonjour');");
+		db.execSQL("INSERT INTO " + ExampleTable.TABLE_NAME + " ( '" + ExampleTable.TITLE + "' ) VALUES ('Hallo');");
 	}
 
 	@Override
