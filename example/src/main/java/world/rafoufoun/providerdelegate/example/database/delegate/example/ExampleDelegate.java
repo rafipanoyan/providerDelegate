@@ -2,7 +2,6 @@ package world.rafoufoun.providerdelegate.example.database.delegate.example;
 
 
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -10,10 +9,9 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import world.rafoufoun.providerdelegate.example.database.ConstantProviderDelegate;
-import world.rafoufoun.providerdelegate.example.database.Contract;
-import world.rafoufoun.providerdelegate.example.database.table.ExampleTable;
 import world.rafoufoun.providerdelegate.ProviderDelegate;
+import world.rafoufoun.providerdelegate.example.database.ConstantProviderDelegate;
+import world.rafoufoun.providerdelegate.example.database.table.ExampleTable;
 
 public class ExampleDelegate extends ProviderDelegate {
 
@@ -24,7 +22,7 @@ public class ExampleDelegate extends ProviderDelegate {
 	}
 
 	@Override
-	protected void initUriMatcher() {
+	protected void initUriMatcher(String authority) {
 		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME, ConstantProviderDelegate.EXAMPLE);
 		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME + ConstantProviderDelegate.SLASH + ConstantProviderDelegate.STAR, ConstantProviderDelegate.EXAMPLE_ITEM);
 	}
