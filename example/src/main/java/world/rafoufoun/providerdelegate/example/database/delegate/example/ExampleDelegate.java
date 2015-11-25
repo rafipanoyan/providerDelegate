@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
 import android.util.Log;
 
 import world.rafoufoun.providerdelegate.ProviderDelegate;
@@ -52,6 +53,9 @@ public class ExampleDelegate extends ProviderDelegate {
 
 	public int delete(SQLiteDatabase db, Uri uri, String selection, String[] selectionArgs) {
 		final int match = uriMatcher.match(uri);
+		if(TextUtils.isEmpty(selection)){
+			selection="";
+		}
 		switch (match) {
 			case ConstantProviderDelegate.EXAMPLE_ITEM:
 				selection=  selection+ " "+BaseColumns._ID+"="+getId(uri);
@@ -64,6 +68,9 @@ public class ExampleDelegate extends ProviderDelegate {
 
 	public int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		final int match = uriMatcher.match(uri);
+		if(TextUtils.isEmpty(selection)){
+			selection="";
+		}
 		switch (match) {
 			case ConstantProviderDelegate.EXAMPLE_ITEM:
 				selection = selection + " " + BaseColumns._ID + "=" + getId(uri);
