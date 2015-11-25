@@ -118,7 +118,7 @@ public class ProviderDelegateManager {
 		for (ProviderDelegate delegate : delegates.values()) {
 			if (isTableMatcher(delegate.getTable(), uri)) {
 				Uri newUri = delegate.insert(db, uri, values);
-				notifyUri(uri);
+				delegate.notifyUri(context, uri);
 				return newUri;
 			}
 		}
@@ -141,7 +141,7 @@ public class ProviderDelegateManager {
 		for (ProviderDelegate delegate : delegates.values()) {
 			if (isTableMatcher(delegate.getTable(), uri)) {
 				int rowDeleted = delegate.delete(db, uri, selection, selectionArgs);
-				notifyUri(uri);
+				delegate.notifyUri(context, uri);
 				return rowDeleted;
 			}
 		}
@@ -164,22 +164,13 @@ public class ProviderDelegateManager {
 
 		for (ProviderDelegate delegate : delegates.values()) {
 			if (isTableMatcher(delegate.getTable(), uri)) {
-				return delegate.update(db, uri, values, selection, selectionArgs);
+				int rowUpdate = delegate.update(db, uri, values, selection, selectionArgs);
+				delegate.notifyUri(context,uri);
+				return rowUpdate;
 			}
 		}
 
 		throw new IllegalArgumentException("No ProviderDelegate registered for this Uri ! " + uri);
-	}
-
-	/**
-	 * Helper method to notify a change on a Uri
-	 *
-	 * @param uri The Uri to notify
-	 */
-	private void notifyUri(Uri uri) {
-		if (context != null) {
-			context.getContentResolver().notifyChange(uri, null);
-		}
 	}
 
 	private boolean isTableMatcher(String table, Uri uri) {

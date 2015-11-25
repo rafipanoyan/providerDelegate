@@ -1,6 +1,7 @@
 package world.rafoufoun.providerdelegate;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -87,5 +88,16 @@ public abstract class ProviderDelegate {
      */
     public Cursor query(SQLiteDatabase db, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder){
         throw new UnsupportedOperationException("query not allowed on this uri : " + uri);
+    }
+
+    /**
+     * Helper method to notify a change on a Uri
+     *
+     * @param uri The Uri to notify
+     */
+    public void notifyUri(Context context, Uri uri) {
+        if (context != null) {
+            context.getContentResolver().notifyChange(uri, null);
+        }
     }
 }
