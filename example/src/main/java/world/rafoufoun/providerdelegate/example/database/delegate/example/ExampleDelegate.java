@@ -2,18 +2,17 @@ package world.rafoufoun.providerdelegate.example.database.delegate.example;
 
 
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
 import android.util.Log;
 
-import world.rafoufoun.providerdelegate.example.database.ConstantProviderDelegate;
-import world.rafoufoun.providerdelegate.example.database.Contract;
-import world.rafoufoun.providerdelegate.example.database.table.ExampleTable;
 import world.rafoufoun.providerdelegate.ProviderDelegate;
+import world.rafoufoun.providerdelegate.example.database.ConstantProviderDelegate;
+import world.rafoufoun.providerdelegate.example.database.table.ExampleTable;
 
 public class ExampleDelegate extends ProviderDelegate {
 
@@ -24,7 +23,7 @@ public class ExampleDelegate extends ProviderDelegate {
 	}
 
 	@Override
-	protected void initUriMatcher() {
+	protected void initUriMatcher(String authority) {
 		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME, ConstantProviderDelegate.EXAMPLE);
 		uriMatcher.addURI(authority, ExampleTable.TABLE_NAME + ConstantProviderDelegate.SLASH + ConstantProviderDelegate.STAR, ConstantProviderDelegate.EXAMPLE_ITEM);
 	}
@@ -54,6 +53,9 @@ public class ExampleDelegate extends ProviderDelegate {
 
 	public int delete(SQLiteDatabase db, Uri uri, String selection, String[] selectionArgs) {
 		final int match = uriMatcher.match(uri);
+		if(TextUtils.isEmpty(selection)){
+			selection="";
+		}
 		switch (match) {
 			case ConstantProviderDelegate.EXAMPLE_ITEM:
 				selection=  selection+ " "+BaseColumns._ID+"="+getId(uri);
@@ -66,6 +68,9 @@ public class ExampleDelegate extends ProviderDelegate {
 
 	public int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		final int match = uriMatcher.match(uri);
+		if(TextUtils.isEmpty(selection)){
+			selection="";
+		}
 		switch (match) {
 			case ConstantProviderDelegate.EXAMPLE_ITEM:
 				selection = selection + " " + BaseColumns._ID + "=" + getId(uri);
