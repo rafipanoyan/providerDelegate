@@ -97,15 +97,12 @@ public class ExampleDelegate extends ProviderDelegate {
 				selectionArgs, null, null, sortOrder);
 	}
 
-	private long getId(Uri uri) {
-		String lastPathSegment = uri.getLastPathSegment();
-		if (lastPathSegment != null) {
-			try {
-				return Long.parseLong(lastPathSegment);
-			} catch (NumberFormatException e) {
-				Log.e(TAG, "Number Format Exception : " + e);
-			}
-		}
-		return -1;
-	}
+
+    private long getId(Uri uri) {
+        String lastPathSegment = uri.getLastPathSegment();
+        if (lastPathSegment != null) {
+            return Long.parseLong(lastPathSegment);
+        }
+        return -1;
+    }
 }
